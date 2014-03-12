@@ -1,0 +1,59 @@
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage{graphicx, color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\title{Spatial Epidemiology in Public Health - Assignment}
+\author{Student number: 106936}
+\usepackage{booktabs}
+\usepackage{xspace}
+\usepackage{amsmath}%
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{graphicx}
+\usepackage[bottom=2cm,margin=2.5cm]{geometry}
+\usepackage{lmodern}
+\usepackage{rotating}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\fancyhead{}
+\fancyfoot{}
+\setlength{\headheight}{15.2pt}
+%\setlength{\footskip=20pt}
+\pagestyle{fancy}
+\lhead[\thepage]{Student 106936}
+\chead[ SME assignment]{SME assignment}
+\rhead[ Student 106936]{\thepage}
+\usepackage[compact]{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\makeatletter
+\newcommand\gobblepars{%
+    \@ifnextchar\par%
+        {\expandafter\gobblepars\@gobble}%
+        {}}
+\makeatother
+\begin{document}
+<<setup, echo=FALSE, results='asis'>>=
+library(ggplot2)
+library(sp)
+library(rgeos)
+library(spatial)
+library(plyr)
+library(binom)
+library(xtable)
+library(gstat)
+
+setwd("/home/simon/Documents/MSc_modules/spatial/")
+df <-read.csv("/home/simon/Documents/MSc_modules/spatial/Assessment/assessment_data.csv", 
+              header = TRUE, quote = "\"")
+head(df)
+@
+
+\section{Part 1}
+\subsection{Results}
+\ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the south east Kenyan coastal region.
+<<t1, echo=FALSE, results='asis'>>=
+source(desc_tab_1.Rt)
+@
+
+
+\end{document}

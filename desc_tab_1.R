@@ -7,20 +7,20 @@ df$stun.class <- NA
 df$stun.class[df$stunted < 0.2] <- "Low (\\textless 20 \\%)"
 df$stun.class[df$stunted >= 0.2 & df$stunted <0.3] <- "Medium (20 - 29 \\%)"
 df$stun.class[df$stunted >= 0.3 & df$stunted <0.4] <- "High (30 - 39 \\%)"
-df$stun.class[df$stunted >= 0.4] <- "Very high (\\ge 40 \\%)"
+df$stun.class[df$stunted >= 0.4] <- "Very high ($\\ge$ 40 \\%)"
 df$stun.class <- factor(df$stun.class, 
                         levels = c("Low (\\textless 20 \\%)", "Medium (20 - 29 \\%)", 
-                                   "High (30 - 39 \\%)", "Very high (\\ge 40 \\%)"))
+                                   "High (30 - 39 \\%)", "Very high ($\\ge$ 40 \\%)"))
 table(df$stun.class, useNA = "ifany")
 
 df$under.class <- NA
 df$under.class[df$underweight < 0.1] <- "Low (\\textless 10 \\%)"
 df$under.class[df$underweight >= 0.1 & df$underweight < 0.2] <- "Medium (10 - 19 \\%)"
 df$under.class[df$underweight >= 0.2 & df$underweight < 0.3] <- "High (20 - 29 \\%)"
-df$under.class[df$underweight >= 0.3] <- "Very high (\\ge 30 \\%)"
+df$under.class[df$underweight >= 0.3] <- "Very high ($\\ge$ 30 \\%)"
 df$under.class <- factor(df$under.class, 
                          levels = c("Low (\\textless 10 \\%)", "Medium (10 - 19 \\%)", 
-                                    "High (20 - 29 \\%)", "Very high (\\ge 30 \\%)"))
+                                    "High (20 - 29 \\%)", "Very high ($\\ge$ 30 \\%)"))
 table(df$under.class, useNA = "ifany")
 
 stunt <- ddply(df, .(stun.class), summarise, stunt = length(sch_id), 
@@ -61,4 +61,5 @@ out <- xtable(both,
               caption = "Distribution of the prevalence of stunted growth and wasting in schools in coastal regions of Kenya, DATE", 
               label = "tab1")
 digits(out)[4] <- 0
-print(out, booktabs = TRUE)
+print(out, booktabs = TRUE, include.rownames = FALSE, 
+      sanitize.text.function = identity)

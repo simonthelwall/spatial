@@ -21,7 +21,7 @@
 %\setlength{\footskip=20pt}
 \pagestyle{fancy}
 \lhead[\thepage]{Student 106936}
-\chead[ SME assignment]{SME assignment}
+\chead[ Spatial Epidemiology in Public Health - Assignment]{Spatial Epidemiology in Public Health - Assignment}
 \rhead[ Student 106936]{\thepage}
 \usepackage[compact]{titlesec}
 \titleformat*{\section}{\large\bfseries}
@@ -32,7 +32,7 @@
         {}}
 \makeatother
 \begin{document}
-<<setup, echo=FALSE, results='asis'>>=
+<<setup, echo=FALSE, results='asis', message=FALSE>>=
 library(ggplot2)
 library(sp)
 library(rgeos)
@@ -45,14 +45,13 @@ library(gstat)
 setwd("/home/simon/Documents/MSc_modules/spatial/")
 df <-read.csv("/home/simon/Documents/MSc_modules/spatial/Assessment/assessment_data.csv", 
               header = TRUE, quote = "\"")
-head(df)
 @
 
 \section{Part 1}
 \subsection{Results}
-\ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the south east Kenyan coastal region.
+Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the south east Kenyan coastal region.
 <<t1, echo=FALSE, results='asis'>>=
-source(desc_tab_1.Rt)
+source("desc_tab_1.R", echo = FALSE)
 @
 
 

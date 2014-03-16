@@ -29,7 +29,7 @@ map2 <- ggplot(df, aes(x = x, y = y)) + # random distribution?
   geom_point(aes(colour = underweight))
 map2
 
-# get admin data in
+# get admin data in ####
 load(file = "KEN_adm5.RData")
 class(gadm)
 ken <- fortify(gadm)
@@ -40,3 +40,20 @@ map3
 rm(map3, gadm)
 
 # geospatial stats ####
+sp.df <- df
+coordinates(sp.df) <- ~x+y # convert to spatial data frame
+str(sp.df)
+head(sp.df@data)
+
+# stunted first
+std.varg <- variogram(stunted~1, sp.df) # assume constant mean
+std.varg
+plot(std.varg)
+std.fit <- fit.variogram(std.varg, model = vgm(1, "Sph", 0.8, 1))
+std.fit
+plot(std.varg, std.fit)
+# mean function appears to mess things up. 
+std.varg.mf <- variogram(stunted~sqrt(stunted), sp.df) # plot mean function rather than constant mean
+std.fit <- fit.variogram(std.varg.mf, model = vgm(1, "Sph", 0.1, 1))
+std.fit
+plot(std.varg, std.fit)

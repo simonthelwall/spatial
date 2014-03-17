@@ -48,11 +48,40 @@ df <-read.csv("/home/simon/Documents/MSc_modules/spatial/Assessment/assessment_d
 @
 
 \section{Part 1}
-\subsection{Results}
+\subsection{A}
 Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the south east Kenyan coastal region.
 <<t1, echo=FALSE, results='asis'>>=
 source("desc_tab_1.R", echo = FALSE)
 @
+Although the distribution of the prevalence of stunting is approximately normal (Figure \ref{dist}), the distribution of the prevalence of underweightness is right skewed. 
+As a result, the data is log transformed. 
+There is no evidence to suggest that there is any correlation between the prevalence of stunting and the prevalence of underweightness, suggesting that those schools with a high prevalence of stunting are not the same as those with a high prevalence of underweightness. 
+\begin{figure}[b]
+\includegraphics[width = \textwidth]{histograms.png}
+\caption{Distribution of the prevalence of stunting and underweightness in school children attending school in Coastal Kenya.}
+\label{dist}
+\end{figure}
+
+The spatial distribution of stunting and underweightness is shown in Figure \ref{dist_maps}. 
+\begin{figure}[b]
+\includegraphics[width = \textwidth]{point_maps.png.png}
+\caption{Geospatial distribution of the prevalence of stunting and underweightness in school children attending school in Coastal Kenya.}
+\label{dist_maps}
+\end{figure}
+
+\subsection{B}
+To investigate the spatial structure of the prevalence of stunting and underweightness, semivariograms were plotted. 
+Because of the skewed nature of the distribution of underweightness in South East Kenya, the data was log transformed. 
+Figure \ref{semi} shows the empirical and fitted semivariograms for stunting and underweightness. 
+The semivargiariogram for stunting suggests that spatial relationships account for some of the variance in the prevalence of stunting. 
+The spatial effect is greater for stunting than it is for underweightness, as evidenced by the greater range of the semivariogram. 
+For stunting, there is a spatial effect for up to 50 decimal degrees. 
+For underweightness, spatial relationships have no effect after about 25 decimal degrees. 
 
 
+\begin{figure}[b]
+\includegraphics[width = \textwidth]{semivariograms.png}
+\caption{Semivariograms for spatial relationships in the prevalences of (A) stunting  and (B) underweightness among school children, Coastal Kenya.}
+\label{semi}
+\end{figure}
 \end{document}

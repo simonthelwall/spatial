@@ -1,4 +1,53 @@
-\documentclass[11pt,a4paper,twoside]{article}
+\documentclass[11pt,a4paper,twoside]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage{graphicx, color}
 %% maxwidth is the original width if it is less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
@@ -32,46 +81,37 @@
         {\expandafter\gobblepars\@gobble}%
         {}}
 \makeatother
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-<<setup, echo=FALSE, results='asis', message=FALSE, warning = FALSE>>=
-library(ggplot2)
-library(sp)
-library(rgeos)
-library(spatial)
-library(plyr)
-library(binom)
-library(xtable)
-library(gstat)
-library(RANN)
-library(spdep)
 
-# Need to include pretty p-value function here. 
 
-#setwd("/home/simon/Documents/MSc_modules/spatial/")
-# df <-read.csv("/home/simon/Documents/MSc_modules/spatial/Assessment/assessment_data.csv", 
-#               header = TRUE, quote = "\"")
-
-setwd("E:\\My Documents B\\MSc stuff\\SME\\spatial")
-df <- read.csv("assessment_data.csv", header = TRUE, quote = "\"")
-
-pValFunTex <- function(x){
-  if (x < 0.001) pval <- "p \\textless 0.001"
-  else if (x < 0.01) pval <- "p \\textless 0.01"
-  else if (x < 0.05) pval <- "p \\textless 0.05"
-  else if (x < 0.1) pval <- "p \\textless 0.1"
-  else pval <- paste("p = ", round(x, 2), sep = "")
-  return(pval)
-}
-@
 
 \section*{Section 1}
 \subsection*{A}
 Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the Kenyan coastal region.
-<<t1, echo=FALSE, results='asis'>>=
-source("desc_tab_1.R", echo = FALSE)
-# cleanup
-rm(out, both, stunt, under)
-@
+% latex table generated in R 3.0.1 by xtable 1.7-3 package
+% Tue Mar 18 22:03:12 2014
+\begin{table}[ht]
+\centering
+\begin{tabular}{llrl}
+  \toprule
+Outcome & Group & n schools & Per cent of schools \\ 
+  \midrule
+Prevalence stunting & Low (\textless 20 \%) & 35 & 34.65 (25.46 - 44.77) \\ 
+   & Medium (20 - 29 \%) & 35 & 34.65 (25.46 - 44.77) \\ 
+   & High (30 - 39 \%) & 23 & 22.77 (15.02 - 32.18) \\ 
+   & Very high ($\ge$ 40 \%) & 8 & 7.92 (3.48 - 15.01) \\ 
+  Prevalence underweight & Low (\textless 10 \%) & 10 & 9.90 (4.85 - 17.46) \\ 
+   & Medium (10 - 19 \%) & 28 & 27.72 (19.28 - 37.52) \\ 
+   & High (20 - 29 \%) & 32 & 31.68 (22.78 - 41.69) \\ 
+   & Very high ($\ge$ 30 \%) & 31 & 30.69 (21.90 - 40.66) \\ 
+   \bottomrule
+\end{tabular}
+\caption{Distribution of the prevalence of stunted growth and wasting in schools in coastal regions of Kenya, DATE} 
+\label{tab1}
+\end{table}
+
+
 Although the distribution of the prevalence of stunting is approximately normal (Figure \ref{dist}), the distribution of the prevalence of underweightness is right skewed. 
 As a result, the data is log transformed. 
 There is no evidence to suggest that there is any correlation between the prevalence of stunting and the prevalence of underweightness, suggesting that those schools with a high prevalence of stunting are not the same as those with a high prevalence of underweightness. 
@@ -112,31 +152,18 @@ Weights were calculated using the \textit{k}-nearest neighbours method.
 Once nearest neighbours had been determined, the Getis-Ord \textit{G} statistic was used to test for autocorrelation. 
 This analysis used the spdep package to obtain the Getis-Ord \textit{G} statistic and the RANN package to identify \textit{k}-nearest neighbours. 
 For the analysis, \textit{k} was set to three to allow detection of close spatial relationships and a one-sided test was performed.
-<<global, echo=FALSE, results='asis', warning=FALSE>>=
-sp.df <- df
-coordinates(sp.df) <- ~x+y
-coords <- coordinates(sp.df)
-stunted.g <- globalG.test(df$stunted, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3)))),
-             alternative = "greater")
-underweight.g <- globalG.test(df$underweight, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3)))),
-                            alternative = "greater")
-@
-The global \textit{G} statistic for stunting was \Sexpr{round(stunted.g$estimate[[1]], 3)} (\Sexpr{pValFunTex(stunted.g$p.value[[1]])}).
-For underweightness, the global \textit{G} statistic was \Sexpr{round(underweight.g$estimate[[1]], 3)} (\Sexpr{pValFunTex(stunted.g$p.value[[1]])}).
+
+
+The global \textit{G} statistic for stunting was 0.011 (p \textless 0.001).
+For underweightness, the global \textit{G} statistic was 0.011 (p \textless 0.001).
 The null hypothesis of the global \textit{G} test is that there is no spatial dependence in the distribution of a measure across the whole area and assumes that the \textit{G} statistic is normally distributed. 
 The global \textit{G} test provides strong evidence that the null hypothesis should be rejected and that there is greater spatial dependence in the disrtibution of both stunting and underweightness in children across the study area that is expected by chance. 
-<<local, echo=FALSE, results='asis', warning=FALSE>>=
-stunting.G <- localG(df$stunted, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3))) ))
-df$stunting.z <- unlist(stunting.G)
-df$stunting.p <- 2*pnorm(-abs(df$stunting.z))
-wasting.G <- localG(df$underweight, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3))) ))
-df$wasting.z <- unlist(wasting.G)
-df$wasting.p <- 2*pnorm(-abs(df$wasting.z))
-@
 
-The local \textit{G} test was used to test for local autocorrelation, again employing \textit{k}=3 for the nearest neighbours in order to detect small clusters of high or low values. 
-The local \textit{G} test identified \Sexpr{length(df$sch_id[df$stunting.p < 0.05 & df$stunting.z > 0])} schools with higher levels of stunting than would be expected by chance alone (local \textit{G} p \textless 0.05) and \Sexpr{length(df$sch_id[df$stunting.p < 0.05 & df$stunting.z < 0])}. 
-For underweight, there were \Sexpr{length(df$sch_id[df$wasting.p < 0.05 & df$wasting.z > 0])} schools with higher levels of underweightness and \Sexpr{length(df$sch_id[df$wasting.p < 0.05 & df$wasting.z < 0])} with lower levels of underweightness. 
+
+
+To test for local autocorrelation it is possible to use the local \textit{G} test. 
+The local \textit{G} identified 7 schools with higher levels of stunting than would be expected by chance alone (local \textit{G} p \textless 0.05) and 6. 
+For underweight, there were 5 schools with higher levels of underweightness and 0 with lower levels of underweightness. 
 
 \section*{Section 2}
 \end{document}

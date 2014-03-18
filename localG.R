@@ -41,8 +41,8 @@ stunting.G <- localG(df$stunted, nb2listw(include.self(knn2nb(knearneigh(coords,
 range(wasting.G)
 stunting.G <- localG(df$stunted, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3))) ))
 range(wasting.G)
-df$stunting.z <- unlist(wasting.G)
-df$stunting.p <- 2*pnorm(-abs(wasting.z))
+df$stunting.z <- unlist(stunting.G)
+df$stunting.p <- 2*pnorm(-abs(stunting.z))
 head(df)
 range(df$stunting.p)
 df[df$stunting.p < 0.05, ]

@@ -1,10 +1,12 @@
 library(spdep)
-?cell2nb
-?knn2nb
+library(RANN)
+# ?cell2nb
+# ?knn2nb
 
 # useful http://cran.at.r-project.org/web/packages/spdep/vignettes/nb.pdf
 
-setwd("E:\\My Documents B\\MSc stuff\\SME\\spatial")
+#setwd("E:\\My Documents B\\MSc stuff\\SME\\spatial")
+setwd("/home/simon/Documents/MSc_modules/spatial")
 df <- read.csv("assessment_data.csv", header = TRUE)
 head(df)
 sp.df <- df
@@ -24,7 +26,13 @@ k4listw <- nb2listw(include.self(k4nb)) # default is W, row standardised (sums o
 head(k4listw) # Weights are all equal and because k = 4, weight is 0.25
 attributes(k4listw)
 
-# now do local G*
+# Global G test
+stunted.g <- globalG.test(df$stunted, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3)))),
+             alternative = "greater")
+underweight.g <- globalG.test(df$underweight, nb2listw(include.self(knn2nb(knearneigh(coords, k = 3)))),
+                            alternative = "greater")
+
+# now do local G*i
 stunting.G <- localG(df$stunted, k4listw)
 stunting.G
 range(stunting.G)

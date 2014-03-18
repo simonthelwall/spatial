@@ -42,13 +42,15 @@ library(binom)
 library(xtable)
 library(gstat)
 
+# Need to include pretty p-value function here. 
+
 setwd("/home/simon/Documents/MSc_modules/spatial/")
 df <-read.csv("/home/simon/Documents/MSc_modules/spatial/Assessment/assessment_data.csv", 
               header = TRUE, quote = "\"")
 @
 
-\section{Part 1}
-\subsection{A}
+\section{Part A}
+\subsection{Q}
 Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the south east Kenyan coastal region.
 <<t1, echo=FALSE, results='asis'>>=
 source("desc_tab_1.R", echo = FALSE)
@@ -69,7 +71,7 @@ The spatial distribution of stunting and underweightness is shown in Figure \ref
 \label{dist_maps}
 \end{figure}
 
-\subsection{B}
+\subsection{Q}
 To investigate the spatial structure of the prevalence of stunting and underweightness, semivariograms were plotted. 
 Because of the skewed nature of the distribution of underweightness in South East Kenya, the data was log transformed. 
 Figure \ref{semi} shows the empirical and fitted semivariograms for stunting and underweightness. 
@@ -77,11 +79,17 @@ The semivargiariogram for stunting suggests that spatial relationships account f
 The spatial effect is greater for stunting than it is for underweightness, as evidenced by the greater range of the semivariogram. 
 For stunting, there is a spatial effect for up to 50 decimal degrees. 
 For underweightness, spatial relationships have no effect after about 25 decimal degrees. 
-
-
 \begin{figure}[b]
 \includegraphics[width = \textwidth]{semivariograms.png}
 \caption{Semivariograms for spatial relationships in the prevalences of (A) stunting  and (B) underweightness among school children, Coastal Kenya.}
 \label{semi}
 \end{figure}
+
+%G\textsuperscript{*}i
+The second method chosen to investigate the spatial structure of the data was the Getis-Ord  \textit{G} statistic. 
+This statistic examines the degree of spatial autocorrelation present in data. 
+To test for autocorrelation, \textit{k}-nearest neighbours was used to identify neighbour relationships between schools.
+This analysis used the spdep package to obtain the Getis-Ord \textit{G} statistic and the RANN package to identify \textit{k}-nearest neighbours. 
+For the analysis, \textit{k} was set to three to allow detection of close spatial relationships.
+
 \end{document}

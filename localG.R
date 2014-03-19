@@ -89,6 +89,8 @@ stunting.G <- localG(df$stunted, nb2listw(include.self(knn2nb(knearneigh(coords,
 df$stunting.11.z <- unlist(stunting.G)
 df$stunting.11.p <- 2*pnorm(-abs(df$stunting.11.z))
 
+plot(knn2nb(knearneigh(coords, k = 11)), coords)
+
 length(df$sch_id[df$stunting.2.z >0 & df$stunting.2.p < 0.05])
 length(df$sch_id[df$stunting.3.z >0 & df$stunting.3.p < 0.05])
 length(df$sch_id[df$stunting.4.z >0 & df$stunting.4.p < 0.05])

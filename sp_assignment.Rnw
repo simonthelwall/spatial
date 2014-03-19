@@ -181,9 +181,14 @@ One can assess the global (across the entire study area) spatial structure or, w
 Local spatial structure is likely to be important in communicable disease where areas of high risk can transmit that risk to neighbouring areas. 
 In this analysis, semivariograms were not detrended and thus represent global spatial structure. 
 
-Similar
-The null hypothesis of the global \textit{G} test is that there is no spatial dependence in the distribution of a measure across the whole area and assumes that the \textit{G} statistic is normally distributed. 
-
+The detection of spatial clustering normally utilises SaTScan software and employs the Kulldorff statistic to assign clusters. 
+However, this requires population data which were not available in these data. 
+Although it would have been possible to set a population for each school to 100 and use this as a proxy for school population, this would not have been appropriate as populations vary geographically would lead to innaccurate clustering. 
+The Getis-Ord statistic does not rely on population data and instead compares the similarity of a value for one location to that of locations nearby, where nearby is given by the number of nearest neighbours in geographic space.
+The selection of an appropriate value for the number of nearest neighbours for global and local \textit{G} tests is a matter of some judgement.
+Too few nearest neighbours and the test will have poor sensitivity, too many and the test will have poor specificity. 
+Ideally, some form on sensitivity analysis would be performed, but this is beyond the scope of this project. 
+In this project, the value of $k=3$ was chosen, allowing for the detection of quite close spatial relationships. 
 
 \section*{Section 2}
 

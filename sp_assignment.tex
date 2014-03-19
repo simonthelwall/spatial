@@ -64,33 +64,60 @@
 \usepackage{lmodern}
 \usepackage{rotating}
 \usepackage[T1]{fontenc}
+\usepackage{natbib}
 \usepackage{fancyhdr}
 \fancyhead{}
 \fancyfoot{}
-\setlength{\headheight}{15.2pt}
+%\setlength{\headheight}{15.2pt}
 %\setlength{\footskip=20pt}
 \pagestyle{fancy}
 \lhead[\thepage]{Student 106936}
 \chead[ Spatial Epidemiology in Public Health - Assignment]{Spatial Epidemiology in Public Health - Assignment}
 \rhead[ Student 106936]{\thepage}
-\usepackage[compact]{titlesec}
-\titleformat*{\section}{\large\bfseries}
-\makeatletter
-\newcommand\gobblepars{%
-    \@ifnextchar\par%
-        {\expandafter\gobblepars\@gobble}%
-        {}}
-\makeatother
+%\usepackage[compact]{titlesec}
+%\titleformat*{\section}{\large\bfseries}
+%\makeatletter
+%\newcommand\gobblepars{%
+%    \@ifnextchar\par%
+%        {\expandafter\gobblepars\@gobble}%
+%        {}}
+%\makeatother
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
 
 
 \section*{Section 1}
-\subsection*{A}
+\subsection*{Introduction}
+Malnutrition in children in Africa can be a serious problem. \textbf{insert ref here}. 
+Identifying geographic areas of poor nutrition can help identify risk factors for malnutrition and provide information for the design of interventions to reduce malnutrition. 
+
+\subsection*{Methods}
+A total of 101 schools in the southern tip of Kenya were surveyed and anthropic measurements were taken. 
+Height-for-age and weight-for-height z-scores for were calculated. 
+Children were considered stunted if the height-for-age z-score was more than two standard deviations lower than the median, and underweight if weight-for-height if the z-score was more than two standard deviations lower than the median. 
+Proportions of chidren stunted and proportions of children underweight were then calculated. 
+Individual level observations were not available for this analysis. 
+
+All analyses were performed using R version 3.0.3.
+Histograms were used to assess the distributions of the prevalences of each measure of malnutrition. 
+Measures of malnutrition were normalised if histograms revealed large amounts of skewness. 
+
+A number of methods were employed to assess the degree of spatial dependency in the distribution of each measure of malnutrition.
+First, semivariograms were plotted using the \texttt{variogram} and \texttt{fit.variogram} functions of the gstat package. 
+Semivariograms were fitted using a spherical model. 
+Second, spatial autocorrelation of the prevalences of either measure was assessed using the Getis-Ord statistic. 
+The Getis-Ord global \textit{G} with a one-sided alternative hypothesis was used to examine spatial autocorrelation across whole study area. 
+Local spatial autocorrelation was tested with the Getis-Ord local \textit{G} statistic.
+The functions used were \texttt{globalG} and \texttt{localG}.
+Both global and local autocorrelation was tested on the basis of distance measured by \textit{k}-nearest neighbours. 
+Nearest neighbours were assigned using the \texttt{knearneigh} from the RANN package. 
+Z-tests were used to test for significance in both Getis-Ord statistics. 
+
+\subsection*{Results}
 Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the Kenyan coastal region.
-% latex table generated in R 3.0.1 by xtable 1.7-3 package
-% Tue Mar 18 22:03:12 2014
+% latex table generated in R 3.0.3 by xtable 1.7-3 package
+% Wed Mar 19 11:39:29 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{llrl}
@@ -123,18 +150,17 @@ There is no evidence to suggest that there is any correlation between the preval
 
 The spatial distribution of stunting and underweightness is shown in Figure \ref{dist_maps}. 
 Visual inspection of the distribution suggests that there is a greater prevalence of stunting in the south west of the study region than in north east. 
-In contrast, the spatial distribution of the prevalence of underweightness appears more even with no particular trend identifiable by visual inspection. 
+In contrast, the prevalence of underweightness appears more evenly distributed in space with no particular trend identifiable by visual inspection. 
 \begin{figure}[b]
 \includegraphics[width = \textwidth]{maps.png}
 \caption{Geospatial distribution of the prevalence of stunting and underweightness in school children attending school in Coastal Kenya. A) Study location. B) Locations of surveyed schools within the survey area. C) Distribution of the prevalence of stunting at surveyed schools. C)Distribution of the prevalence of underweightness at surveyed schools.}
 \label{dist_maps}
 \end{figure}
 
-\subsection*{B}
 To investigate the spatial structure of the prevalence of stunting and underweightness, semivariograms were plotted. 
 Because of the skewed nature of the distribution of underweightness in South East Kenya, the data was log transformed. 
 Figure \ref{semi} shows the empirical and fitted semivariograms for stunting and underweightness. 
-Semivariograms were fitted using the \texttt{variogram} and \texttt{fit.variogram} functions of the gstat package. 
+
 The semivargiariogram for stunting suggests that spatial relationships account for some of the variance in the prevalence of stunting. 
 The spatial effect is greater for stunting than it is for underweightness, as evidenced by the greater range of the semivariogram. 
 For stunting, there is a spatial effect for up to 50 decimal degrees. 
@@ -148,22 +174,46 @@ For underweightness, spatial relationships have no effect beyond approximately 2
 %G\textsuperscript{*}i
 The second method chosen to investigate the spatial structure of the data was the Getis-Ord  \textit{G} statistic. 
 This statistic examines the degree of spatial autocorrelation present in data. 
-Weights were calculated using the \textit{k}-nearest neighbours method.
-Once nearest neighbours had been determined, the Getis-Ord \textit{G} statistic was used to test for autocorrelation. 
-This analysis used the spdep package to obtain the Getis-Ord \textit{G} statistic and the RANN package to identify \textit{k}-nearest neighbours. 
+
 For the analysis, \textit{k} was set to three to allow detection of close spatial relationships and a one-sided test was performed.
 
 
 The global \textit{G} statistic for stunting was 0.011 (p \textless 0.001).
 For underweightness, the global \textit{G} statistic was 0.011 (p \textless 0.001).
-The null hypothesis of the global \textit{G} test is that there is no spatial dependence in the distribution of a measure across the whole area and assumes that the \textit{G} statistic is normally distributed. 
-The global \textit{G} test provides strong evidence that the null hypothesis should be rejected and that there is greater spatial dependence in the disrtibution of both stunting and underweightness in children across the study area that is expected by chance. 
+
+The global \textit{G} test provides strong evidence that the null hypothesis should be rejected and that there was greater spatial dependence in the distribution of both stunting and underweightness in children across the study area than would be expected by chance. 
 
 
 
-To test for local autocorrelation it is possible to use the local \textit{G} test. 
-The local \textit{G} identified 7 schools with higher levels of stunting than would be expected by chance alone (local \textit{G} p \textless 0.05) and 6. 
+The local \textit{G} test was used to test for local autocorrelation, again employing \textit{k}=3 for the nearest neighbours in order to detect small clusters of high or low values. 
+The local \textit{G} test identified 7 schools with higher levels of stunting than would be expected by chance alone (local \textit{G} p \textless 0.05) and 6. 
 For underweight, there were 5 schools with higher levels of underweightness and 0 with lower levels of underweightness. 
 
+\subsection*{Discussion}
+This analysis found multiple pieces of evidence for spatial dependency in the geographic distribution of malnutrition in Kenyan school children. 
+Semivariograms identified spatial structure in the prevalence of both stunting and underweightness, however, the spatial effect was greater for stunting that for underweightness. 
+Global Getis-Ord analysis identified greater spatial dependency for both measures across the entire study area than would be expected by chance. 
+Local Getis-Ord analysis identified schools with higher autocorrelation in prevalences of both measures than would be expected by chance.
+That the local Getis-Ord found fewer schools with autocorrelation for the prevalence of underweightness than was found for stunting supports the results of the semivariogram analysis, which found lower spatial structure for underweightness than for stunting. 
+
+The differences in geographic distribution between high prevalence of stunting (long term malnutrition) and high prevalences of underweightness (short term malnutrition) suggests that the distribution of risk factors is different between the two. 
+These differences in distribution may be in terms of time or space, or a combination of the two. 
+Unfortunately, without historic data it is not possible to assess how either measure has changed over time. 
+
+Semivariograms are a natural choice to examine the spatial structure of a variable.
+However, they rely on data being normally distributed, which may necessitate the transformation of some data where skewing occurs. 
+If a variable is highly skewed, and it is not possible to normalise the data, plotting semivariograms is not an appropriate approach. 
+Different approaches to semivariogram analysis may be taken. 
+One can assess the global (across the entire study area) spatial structure or, with detrending, one can assess local (across localised areas within the study area) spatial structure. \cite{Pullan2012}
+Local spatial structure is likely to be important in communicable disease where areas of high risk can transmit that risk to neighbouring areas. 
+In this analysis, semivariograms were not detrended and thus represent global spatial structure. 
+
+Similar
+The null hypothesis of the global \textit{G} test is that there is no spatial dependence in the distribution of a measure across the whole area and assumes that the \textit{G} statistic is normally distributed. 
+
+
 \section*{Section 2}
+
+\bibliographystyle{plainnat}
+\bibliography{sp_refs}
 \end{document}

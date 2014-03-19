@@ -15,6 +15,7 @@
 \usepackage{lmodern}
 \usepackage{rotating}
 \usepackage[T1]{fontenc}
+\usepackage{natbib}
 \usepackage{fancyhdr}
 \fancyhead{}
 \fancyfoot{}
@@ -185,4 +186,7 @@ The null hypothesis of the global \textit{G} test is that there is no spatial de
 
 
 \section*{Section 2}
+
+\bibliographystyle{plainnat}
+\bibliography{sp_refs}
 \end{document}

@@ -1,5 +1,5 @@
 library(ggplot2)
-library(sp)
+library(sp) # need for coordinates function
 library(rgeos)
 library(spatial)
 library(plyr)
@@ -47,8 +47,12 @@ head(sp.df@data)
 
 # stunted first
 std.varg <- variogram(stunted~1, sp.df) # assume constant mean
-std.varg
+#std.varg
 plot(std.varg)
+# data(meuse)
+# coordinates(meuse) <- ~x+y
+# plot(variogram(log(zinc)~1, meuse))
+
 std.fit <- fit.variogram(std.varg, model = vgm(1, "Sph", 0.8, 1))
 std.fit
 plot(std.varg, std.fit)

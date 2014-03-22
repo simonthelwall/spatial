@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[british]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{106936}
+\title{A critical synthesis of modern methods in spatial statistics - point processes}
+\begin{document}
+\maketitle
+%\begin{enumerate}
+%\item Describe a spatial point process (20 \%)
+%\item Using examples of at least two disease models, discuss advantages and disadvantages of cluster detection methods and application to inf dis control programmes. (80 \%)
+%\end{enumerate}
+\section{Describe a spatial point process}
+Spatial data can be classified into three forms: point, continuous and aggregated. 
+Aggregated data combines multiple measures of some exposure or outcome into an overall value for some defined geographical area. 
+These data can then be analysed based on their spatial neighbourhood. 
+As with non-spatial data, continuous data can take any value within a range. 
+In contrast to these forms, point data is the occurrence of a discrete event within space. 
+
+A spatial point process is a mathematical description of the spatial distribution of events occurring on a plane. 
+The number of points (events) and the positions of points on the plane are are subject to variation due to chance, i.e. they are random. 
+The analysis of spatial point processes aims to estimate the parameters of the process. 
+
+For example, the locations of diagnoses of people with lymphatic filariasis will be distributed at random throughout space. 
+Each diagnosis would be an event, and the location of each event would be subject to random variation. 
+However, the frequency with which events occur will vary according a number of factors, including the density of parasite vectors in the local environment. 
+These are first order effect effects and are deterministic. 
+In addition to the deterministic effects, second order effects may be present. 
+In second order effects there is spatial dependency and events are either more likely to occur in areas where there are already a high number of the same event, or less likely to occur in such areas. 
+The former case is more likely to occur in communicable disease epidemiology, where a person is more likely to become infected when proximate to other people who are already infected. 
+
+\section{Discuss advantages and disadvantages of cluster detection methods and application to inf dis control programmes.}
+
+Cluster detection methods make use of spatial point processes and 
+
+%%%% The following may be relevant, but isn't very good. 
+%Spatial point processes may often be modelled as Poisson distributions in which the distribution of counts have a mean $\lambda$ and a variance equal to the mean.  
+%However, the Poisson distribution assumes that events occur independently of each other, which may not be a valid assumption for communicable diseases. \ref{Kirkwood2003}
+% Example of spatial point process here. 
+
+\end{document}

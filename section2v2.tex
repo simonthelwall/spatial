@@ -1,0 +1,63 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%opening
+\title{A critical synthesis of modern methods in spatial statistics - point processes}
+\author{Student 106936}
+
+\begin{document}
+
+\maketitle
+\section{Spatial point processes}
+Spatial data can be classified into three forms: point, continuous and aggregated. 
+Aggregated data combines multiple measures of some exposure or outcome into an overall value for some defined geographical area. 
+These data can then be analysed based on their spatial neighbourhood. 
+As with non-spatial data, continuous data can take any value within a range. 
+In contrast to these forms, point data is the occurrence of a discrete event within space. 
+
+A spatial point process is a mathematical description of the spatial distribution of events occurring on a plane. 
+The number of points (events) and the positions of points on the plane are are subject to variation due to chance, i.e. they are random. 
+The analysis of spatial point processes aims to estimate the parameters of the process. 
+
+For example, the locations of diagnoses of people with lymphatic filariasis will be distributed at random throughout space. 
+Each diagnosis would be an event, and the location of each event would be subject to random variation. 
+However, the frequency with which events occur will vary according a number of factors, including the density of parasite vectors in the local environment. 
+These are first order effect effects and are deterministic. 
+In addition to the deterministic effects, second order effects may be present. 
+In second order effects there is spatial dependency and events are either more likely to occur in areas where there are already a high number of the same event, or less likely to occur in such areas. 
+The former case is more likely to occur in communicable disease epidemiology, where a person is more likely to become infected when proximate to other people who are already infected. 
+
+%\item Using examples of at least two disease system, discuss advantages and disadvantages of cluster detection methods and application to inf dis control programmes. (80 \%)
+
+\section{Advantages and disadvantages of cluster detection and application to infectious disease control programmes}
+\subsection{Introduction and definitions}
+The Centers for Disease Prevention and Control define a disease cluster as 
+\begin{quotation}
+ an unusual aggregation, real or perceived, of health events that are grouped together in time and space and that are reported to a health agency.\cite{cdc1990}
+\end{quotation}
+In contrast, Rothman argues that geographic clusters are 
+\begin{quotation}
+ a geographically defined population with a high [disease] incidence rate.\cite{Rothman1990}
+\end{quotation}
+Both definitions fail to specify the criteria for 'unusual' or 'high'. 
+
+Infectious disease control programmes are health care systems designed to limit the incidence of specified infectious diseases. 
+This may include, but not be limited to, surveillance of cases of infectious disease, interventions to reduce or remove risk factors and treat, or facilitate the treatment of, persons affected by the disease in question. 
+To this end, the intents of infection control programmes are quite different to the epidemiologic investigation of disease where the aim is to identify, and describe scientifically, those factors predisposing to disease. 
+
+Investigatory cluster detection aims identify novel factors that geographically co-distribute with areas of high disease rates in order to elucidate the causes of diseases.
+In contrast, cluster detection in control programmes seeks to identify areas with unusually high or low levels of disease in order to make some change to reduce those levels. 
+For example, the surveillance of malaria in Mpumalanga Province in South Africa has employed disease cluster analysis to prioritise control methods and distribute services. \cite{Coleman2009}
+In this way, cluster detection for disease control avoids some of the criticisms levelled at cluster detection for scientific purposes by Rothman
+\begin{quotation}
+ With specific disease hypotheses in hand we should test them in preference to the vague hypothesis that this might be one of those diseases that occurs in clusters. The evaluation of clustering itself does not readily generate interesting hypotheses, or move us forward much toward understanding disease etiology. 
+\end{quotation}
+When the aetiology of a disease is well understood and control measures are known to be effective, the lack of hypothesis generation matters little. 
+
+\subsection{Applications of cluster detection}
+Cluster detection can vary in scale, from the very local to the global.
+The detection of diseases introduced to countries by returning travellers is important to prevent such diseases becoming established. 
+Cluster detection has been able to identify clusters of malaria and dengue fever in travellers returning from a number of countries.\cite{Leder2013}
+Such information could contribute to the preparation of guidelines for overseas travellers and would allow surveillance systems to attribute such cases to exogenous risks rather than endogenous. 
+In contrast very localised work can seek to identify hotspots of disease to intervene, such as by employing larvicidal techniques to reduce malaria in Zanzibar.\cite{Bousema2013}
+\end{document}

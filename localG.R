@@ -5,8 +5,8 @@ library(RANN)
 
 # useful http://cran.at.r-project.org/web/packages/spdep/vignettes/nb.pdf
 
-#setwd("E:\\My Documents B\\MSc stuff\\SME\\spatial")
-setwd("/home/simon/Documents/MSc_modules/spatial")
+setwd("E:\\My Documents B\\MSc stuff\\SME\\spatial")
+#setwd("/home/simon/Documents/MSc_modules/spatial")
 df <- read.csv("assessment_data.csv", header = TRUE)
 head(df)
 sp.df <- df
@@ -101,3 +101,54 @@ length(df$sch_id[df$stunting.8.z >0 & df$stunting.8.p < 0.05])
 length(df$sch_id[df$stunting.9.z >0 & df$stunting.9.p < 0.05])
 length(df$sch_id[df$stunting.10.z >0 & df$stunting.10.p < 0.05])
 length(df$sch_id[df$stunting.11.z >0 & df$stunting.11.p < 0.05])
+
+df$stunt.test.high <- 0
+df$stunt.test.high[df$stunted > 0.3] <- 1
+df$under.test.high <- 0
+df$under.test.high[df$underweight > 0.2] <- 1
+
+df2 <- data.frame(k = seq(2, 11, 1), tp = NA, fp = NA )
+df2$tp[df2$k == 2] <- length(df$sch_id[df$stunting.2.z >0 & df$stunting.2.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 3] <- length(df$sch_id[df$stunting.3.z >0 & df$stunting.3.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 4] <- length(df$sch_id[df$stunting.4.z >0 & df$stunting.4.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 5] <- length(df$sch_id[df$stunting.5.z >0 & df$stunting.5.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 6] <- length(df$sch_id[df$stunting.6.z >0 & df$stunting.6.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 7] <- length(df$sch_id[df$stunting.7.z >0 & df$stunting.7.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 8] <- length(df$sch_id[df$stunting.8.z >0 & df$stunting.8.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 9] <- length(df$sch_id[df$stunting.9.z >0 & df$stunting.9.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 10] <- length(df$sch_id[df$stunting.10.z >0 & df$stunting.10.p < 0.05 & df$stunt.test.high == 1])
+df2$tp[df2$k == 11] <- length(df$sch_id[df$stunting.11.z >0 & df$stunting.11.p < 0.05 & df$stunt.test.high == 1])
+
+df2$fp[df2$k == 2] <- length(df$sch_id[df$stunting.2.z >0 & df$stunting.2.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 3] <- length(df$sch_id[df$stunting.3.z >0 & df$stunting.3.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 4] <- length(df$sch_id[df$stunting.4.z >0 & df$stunting.4.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 5] <- length(df$sch_id[df$stunting.5.z >0 & df$stunting.5.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 6] <- length(df$sch_id[df$stunting.6.z >0 & df$stunting.6.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 7] <- length(df$sch_id[df$stunting.7.z >0 & df$stunting.7.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 8] <- length(df$sch_id[df$stunting.8.z >0 & df$stunting.8.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 9] <- length(df$sch_id[df$stunting.9.z >0 & df$stunting.9.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 10] <- length(df$sch_id[df$stunting.10.z >0 & df$stunting.10.p < 0.05 & df$stunt.test.high == 0])
+df2$fp[df2$k == 11] <- length(df$sch_id[df$stunting.11.z >0 & df$stunting.11.p < 0.05 & df$stunt.test.high == 0])
+
+df2$fn[df2$k == 2] <- length(df$sch_id[df$stunting.2.z >0 & df$stunting.2.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 3] <- length(df$sch_id[df$stunting.3.z >0 & df$stunting.3.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 4] <- length(df$sch_id[df$stunting.4.z >0 & df$stunting.4.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 5] <- length(df$sch_id[df$stunting.5.z >0 & df$stunting.5.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 6] <- length(df$sch_id[df$stunting.6.z >0 & df$stunting.6.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 7] <- length(df$sch_id[df$stunting.7.z >0 & df$stunting.7.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 8] <- length(df$sch_id[df$stunting.8.z >0 & df$stunting.8.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 9] <- length(df$sch_id[df$stunting.9.z >0 & df$stunting.9.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 10] <- length(df$sch_id[df$stunting.10.z >0 & df$stunting.10.p > 0.05 & df$stunt.test.high == 0])
+df2$fn[df2$k == 11] <- length(df$sch_id[df$stunting.11.z >0 & df$stunting.11.p > 0.05 & df$stunt.test.high == 0])
+
+df2$tn[df2$k == 2] <- length(df$sch_id[df$stunting.2.z >0 & df$stunting.2.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 3] <- length(df$sch_id[df$stunting.3.z >0 & df$stunting.3.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 4] <- length(df$sch_id[df$stunting.4.z >0 & df$stunting.4.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 5] <- length(df$sch_id[df$stunting.5.z >0 & df$stunting.5.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 6] <- length(df$sch_id[df$stunting.6.z >0 & df$stunting.6.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 7] <- length(df$sch_id[df$stunting.7.z >0 & df$stunting.7.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 8] <- length(df$sch_id[df$stunting.8.z >0 & df$stunting.8.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 9] <- length(df$sch_id[df$stunting.9.z >0 & df$stunting.9.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 10] <- length(df$sch_id[df$stunting.10.z >0 & df$stunting.10.p > 0.05 & df$stunt.test.high == 1])
+df2$tn[df2$k == 11] <- length(df$sch_id[df$stunting.11.z >0 & df$stunting.11.p > 0.05 & df$stunt.test.high == 1])
+

@@ -59,21 +59,23 @@
 \usepackage{amsmath}%
 \usepackage{amsfonts}
 \usepackage{amssymb}
-%\usepackage{graphicx}
-\usepackage[bottom=2cm,margin=2.5cm]{geometry}
+\usepackage{graphicx}
+%\usepackage[bottom=2cm,margin=2.5cm]{geometry}
 \usepackage{lmodern}
-\usepackage{rotating}
+\usepackage[figuresright]{rotating}
 \usepackage[T1]{fontenc}
-\usepackage{natbib}
-\usepackage{fancyhdr}
-\fancyhead{}
-\fancyfoot{}
+%\usepackage{float} % for controlling floats
+%\restylefloat{figure} % for controlling floats
+%\usepackage{natbib}
+%\usepackage{fancyhdr}
+%\fancyhead{}
+%\fancyfoot{}
 %\setlength{\headheight}{15.2pt}
 %\setlength{\footskip=20pt}
-\pagestyle{fancy}
-\lhead[\thepage]{Student 106936}
-\chead[ Spatial Epidemiology in Public Health - Assignment]{Spatial Epidemiology in Public Health - Assignment}
-\rhead[ Student 106936]{\thepage}
+%\pagestyle{fancy}
+%\lhead[\thepage]{Student 106936}
+%\chead[ Spatial Epidemiology in Public Health - Assignment]{Spatial Epidemiology in Public Health - Assignment}
+%\rhead[ Student 106936]{\thepage}
 %\usepackage[compact]{titlesec}
 %\titleformat*{\section}{\large\bfseries}
 %\makeatletter
@@ -82,28 +84,41 @@
 %        {\expandafter\gobblepars\@gobble}%
 %        {}}
 %\makeatother
+% One float per page
+\setcounter{topnumber}{1}
+\renewcommand\topfraction{.7}
+\setcounter{bottomnumber}{1}
+\renewcommand\bottomfraction{.3}
+\setcounter{totalnumber}{1}
+\renewcommand\textfraction{.2}
+\renewcommand\floatpagefraction{.5}
+%Force floats to end of article
+\usepackage[noheads,nomarkers, nofiglist, notablist]{endfloat}
+\DeclareDelayedFloatFlavor{sidewaysfigure}{figure}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
 \begin{document}
+\maketitle
 
 
 
-\section*{Section 1}
-\subsection*{Introduction}
-Malnutrition in children in Africa can be a serious problem. \textbf{insert ref here}. 
+\section{Descriptive spatial analysis of malnutrition in Kenyan schoolchildren}
+\subsection{Introduction}
+Malnutrition in children in Africa is a serious problem. \cite{Bain2013} 
 Identifying geographic areas of poor nutrition can help identify risk factors for malnutrition and provide information for the design of interventions to reduce malnutrition. 
 
-\subsection*{Methods}
-A total of 101 schools in the southern tip of Kenya were surveyed and anthropic measurements were taken. 
-Height-for-age and weight-for-height z-scores for were calculated. 
-Children were considered stunted if the height-for-age z-score was more than two standard deviations lower than the median, and underweight if weight-for-height if the z-score was more than two standard deviations lower than the median. 
+\subsection{Methods}
+A total of 101 schools in the southern tip of Kenya were surveyed and anthropometric measurements were taken. 
+Height-for-age and weight-for-height z-scores were calculated. 
+Children were considered stunted if the height-for-age z-score was more than two standard deviations lower than the median, and underweight if the weight-for-height  z-score was more than two standard deviations lower than the median. 
 Proportions of chidren stunted and proportions of children underweight were then calculated. 
 Individual level observations were not available for this analysis. 
 
-All analyses were performed using R version 3.0.3.
+All analyses were performed using R version 3.0.1.
 Histograms were used to assess the distributions of the prevalences of each measure of malnutrition. 
-Measures of malnutrition were normalised if histograms revealed large amounts of skewness. 
+Measures of malnutrition were normalised if histograms revealed large amounts of skew. 
 
-A number of methods were employed to assess the degree of spatial dependency in the distribution of each measure of malnutrition.
+Two methods were employed to assess the degree of spatial dependency in the distribution of each measure of malnutrition.
 First, semivariograms were plotted using the \texttt{variogram} and \texttt{fit.variogram} functions of the gstat package. 
 Semivariograms were fitted using a spherical model. 
 Second, spatial autocorrelation of the prevalences of either measure was assessed using the Getis-Ord statistic. 
@@ -114,10 +129,10 @@ Both global and local autocorrelation was tested on the basis of distance measur
 Nearest neighbours were assigned using the \texttt{knearneigh} from the RANN package. 
 Z-tests were used to test for significance in both Getis-Ord statistics. 
 
-\subsection*{Results}
-Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of wasting in children attending schools in the Kenyan coastal region.
-% latex table generated in R 3.0.3 by xtable 1.7-3 package
-% Wed Mar 19 11:39:29 2014
+\subsection{Results}
+Table \ref{tab1} shows the distribution of the prevalence of stunted growth and of underweightness in children attending schools in the Kenyan coastal region.
+% latex table generated in R 3.0.1 by xtable 1.7-3 package
+% Tue Mar 25 21:31:36 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{llrl}
@@ -134,28 +149,18 @@ Prevalence stunting & Low (\textless 20 \%) & 35 & 34.65 (25.46 - 44.77) \\
    & Very high ($\ge$ 30 \%) & 31 & 30.69 (21.90 - 40.66) \\ 
    \bottomrule
 \end{tabular}
-\caption{Distribution of the prevalence of stunted growth and wasting in schools in coastal regions of Kenya, DATE} 
+\caption{Distribution of the prevalence of stunted growth and wasting children attending schools in coastal regions of Kenya} 
 \label{tab1}
 \end{table}
 
 
-Although the distribution of the prevalence of stunting is approximately normal (Figure \ref{dist}), the distribution of the prevalence of underweightness is right skewed. 
-As a result, the data is log transformed. 
-There is no evidence to suggest that there is any correlation between the prevalence of stunting and the prevalence of underweightness, suggesting that those schools with a high prevalence of stunting are not the same as those with a high prevalence of underweightness. 
-\begin{figure}[b]
-\includegraphics[width = \textwidth]{histograms.png}
-\caption{Distribution of the prevalence of stunting and underweightness in school children attending school in Coastal Kenya.}
-\label{dist}
-\end{figure}
+Although the distribution of the prevalence of stunting is approximately normal (Figure \ref{dist}), the distribution of the prevalence of underweight is right skewed. 
+As a result, the data were log transformed. 
+There is no evidence to suggest that there is any correlation between the prevalence of stunting and the prevalence of underweight, suggesting that those schools with a high prevalence of stunting are not the same as those with a high prevalence of underweightness. 
 
 The spatial distribution of stunting and underweightness is shown in Figure \ref{dist_maps}. 
 Visual inspection of the distribution suggests that there is a greater prevalence of stunting in the south west of the study region than in north east. 
 In contrast, the prevalence of underweightness appears more evenly distributed in space with no particular trend identifiable by visual inspection. 
-\begin{figure}[b]
-\includegraphics[width = \textwidth]{maps.png}
-\caption{Geospatial distribution of the prevalence of stunting and underweightness in school children attending school in Coastal Kenya. A) Study location. B) Locations of surveyed schools within the survey area. C) Distribution of the prevalence of stunting at surveyed schools. C)Distribution of the prevalence of underweightness at surveyed schools.}
-\label{dist_maps}
-\end{figure}
 
 To investigate the spatial structure of the prevalence of stunting and underweightness, semivariograms were plotted. 
 Because of the skewed nature of the distribution of underweightness in South East Kenya, the data was log transformed. 
@@ -165,11 +170,12 @@ The semivargiariogram for stunting suggests that spatial relationships account f
 The spatial effect is greater for stunting than it is for underweightness, as evidenced by the greater range of the semivariogram. 
 For stunting, there is a spatial effect for up to 50 decimal degrees. 
 For underweightness, spatial relationships have no effect beyond approximately 25 decimal degrees. 
-\begin{figure}[b]
-\includegraphics[width = \textwidth]{semivariograms.png}
-\caption{Semivariograms for spatial relationships in the prevalences of (A) stunting  and (B) underweightness among school children, Coastal Kenya.}
-\label{semi}
-\end{figure}
+
+Since visual inspection suggested a first order trend in stunting, linear regression was performed to assess whether geographic location was associated with prevalence of stunting. 
+
+
+There was strong evidence of a weak association between the prevalence of stunting and longitude (R$^2$ = 0.08, p \textless 0.01).
+Because there was only a weak first order effect by longitude, detrending was deemed unnecessary. 
 
 %G\textsuperscript{*}i
 The second method chosen to investigate the spatial structure of the data was the Getis-Ord  \textit{G} statistic. 
@@ -188,15 +194,16 @@ The global \textit{G} test provides strong evidence that the null hypothesis sho
 The local \textit{G} test was used to test for local autocorrelation, again employing \textit{k}=3 for the nearest neighbours in order to detect small clusters of high or low values. 
 The local \textit{G} test identified 7 schools with higher levels of stunting than would be expected by chance alone (local \textit{G} p \textless 0.05) and 6. 
 For underweight, there were 5 schools with higher levels of underweightness and 0 with lower levels of underweightness. 
+Figure \ref{cluster_map} shows the distribution of clusters of stunting and underweightness.
 
-\subsection*{Discussion}
+\subsection{Discussion}
 This analysis found multiple pieces of evidence for spatial dependency in the geographic distribution of malnutrition in Kenyan school children. 
 Semivariograms identified spatial structure in the prevalence of both stunting and underweightness, however, the spatial effect was greater for stunting that for underweightness. 
 Global Getis-Ord analysis identified greater spatial dependency for both measures across the entire study area than would be expected by chance. 
 Local Getis-Ord analysis identified schools with higher autocorrelation in prevalences of both measures than would be expected by chance.
 That the local Getis-Ord found fewer schools with autocorrelation for the prevalence of underweightness than was found for stunting supports the results of the semivariogram analysis, which found lower spatial structure for underweightness than for stunting. 
 
-The differences in geographic distribution between high prevalence of stunting (long term malnutrition) and high prevalences of underweightness (short term malnutrition) suggests that the distribution of risk factors is different between the two. 
+The differences in geographic distribution between high prevalence of stunting (long-term malnutrition) and high prevalences of underweightness (short-term malnutrition) suggests that the distribution of risk factors is different between the two. 
 These differences in distribution may be in terms of time or space, or a combination of the two. 
 Unfortunately, without historic data it is not possible to assess how either measure has changed over time. 
 
@@ -208,12 +215,153 @@ One can assess the global (across the entire study area) spatial structure or, w
 Local spatial structure is likely to be important in communicable disease where areas of high risk can transmit that risk to neighbouring areas. 
 In this analysis, semivariograms were not detrended and thus represent global spatial structure. 
 
-Similar
-The null hypothesis of the global \textit{G} test is that there is no spatial dependence in the distribution of a measure across the whole area and assumes that the \textit{G} statistic is normally distributed. 
+The detection of spatial clustering normally utilises SaTScan software and employs the Kulldorff statistic to assign clusters. 
+However, this requires population data which were not available in these data. 
+Although it would have been possible to set a population for each school to 100 and use this as a proxy for school population, this would not have been appropriate as populations vary geographically would lead to innaccurate clustering. 
+The Getis-Ord statistic does not rely on population data and instead compares the similarity of a value for one location to that of locations nearby, where nearby is given by the number of nearest neighbours in geographic space.
+The selection of an appropriate value for the number of nearest neighbours for global and local \textit{G} tests is a matter of some judgement.
+Too few nearest neighbours and the test will have poor sensitivity, too many and the test will have poor specificity. 
+Ideally, some form on sensitivity analysis would be performed, but this is beyond the scope of this project. 
+In this project, the value of $k=3$ was chosen, allowing for the detection of quite close spatial relationships. 
 
+\subsection{Conclusion}
+Stunting and underweightness were highly prevalent in this data set. 
+Both stunting and underweightness exhibit spatial dependency and clustering. 
+Further research should identify risk factors for both outcomes. 
+\clearpage
 
-\section*{Section 2}
+\begin{sidewaysfigure}[H]
+\includegraphics[width = \textwidth]{histograms.png}
+\caption{Distribution of the prevalence of stunting and underweightness in school children attending school in coastal Kenya.}
+\label{dist}
+\end{sidewaysfigure}
+\clearpage
 
-\bibliographystyle{plainnat}
+\begin{figure}[H]
+\includegraphics[width = \textwidth]{maps.png}
+\caption{Geospatial distribution of the prevalence of stunting and underweightness in school children attending school in coastal Kenya. A) Study location. B) Locations of surveyed schools within the survey area. C) Distribution of the prevalence of stunting at surveyed schools. C) Distribution of the prevalence of underweightness at surveyed schools.}
+\label{dist_maps}
+\end{figure}
+\clearpage
+
+\begin{sidewaysfigure}[H]
+\includegraphics[width = \textwidth]{semivariograms.png}
+\caption{Semivariograms for spatial relationships in the prevalences of (A) stunting  and (B) underweightness among school children, Coastal Kenya.}
+\label{semi}
+\end{sidewaysfigure}
+\clearpage
+
+\begin{sidewaysfigure}[H]
+\includegraphics[width = \textwidth]{assignment2.png}
+\caption{Clustering of high and low prevalences of (A) stunting and (B) underweightness in children attending school, coastal Kenya. Red dots show schools identified as clustered high levels, green dots show schools identified as clustered low.}
+\label{cluster_map}
+\end{sidewaysfigure}
+\clearpage
+
+\section{A critical synthesis of modern methods in spatial statistics - point processes}
+\subsection{Spatial point processes}
+Spatial data can be classified into three forms: point, continuous and aggregated. 
+Aggregated data combines multiple measures of some exposure or outcome into an overall value for some defined geographical area. 
+As with non-spatial data, continuous data can take any value within a range. 
+In contrast, point data is the occurrence of a discrete event within space. 
+
+A spatial point process is a mathematical description of the spatial distribution of events occurring on a plane. 
+The number of points (events) and the positions of points on the plane are are subject to variation due to chance, i.e. they are random. 
+The analysis of spatial point processes aims to estimate the parameters of the process. 
+
+For example, the locations of diagnoses of people with lymphatic filariasis will be distributed throughout space. 
+Each diagnosis would be an event, and the location of each event would be subject to random variation. 
+However, the frequency and location at which events occur will vary according a number of factors in the local environment, such as the level of vegetation. \cite{Stensgaard2011}
+These are first order effects and are deterministic. 
+In addition to the deterministic effects, second order effects may be present. 
+In second order effects there is spatial dependency and events are either more or less likely to occur in areas where there is already a high number of the same event. 
+The former scenario is more likely to occur in communicable disease epidemiology, where a person is more likely to become infected when proximate to other people who are already infected. 
+
+%\item Using examples of at least two disease system, discuss advantages and disadvantages of cluster detection methods and application to inf dis control programmes. (80 \%)
+
+\subsection{Advantages and disadvantages of cluster detection and application to infectious disease control programmes}
+\subsubsection{Introduction and definitions}
+The Centers for Disease Prevention and Control (CDC) define a disease cluster as 
+\begin{quotation}
+ an unusual aggregation, real or perceived, of health events that are grouped together in time and space and that are reported to a health agency.\cite{cdc1990}
+\end{quotation}
+In contrast, Rothman argues that geographic clusters are 
+\begin{quotation}
+ a geographically defined population with a high [disease] incidence rate.\cite{Rothman1990}
+\end{quotation}
+
+Infectious disease control programmes are health care systems designed to reduce the incidence or prevalence of specified infectious diseases. 
+This may include surveillance of cases of disease, interventions to reduce or remove risk factors and treat, or facilitate the treatment of, persons affected by the specified disease. 
+The intentions of infection control programmes are quite different to the epidemiologic investigation of disease where the aim is to identify, and describe scientifically, those factors determining disease frequency. 
+
+Investigatory cluster detection aims to identify novel factors that geographically co-distribute with areas of high disease rates to elucidate causes of disease.
+In contrast, cluster detection in control programmes seeks to identify areas with unusually high or low levels of disease in order to make some change to reduce those levels. 
+For example, the surveillance of malaria in Mpumalanga Province in South Africa has employed disease cluster analysis to prioritise control methods and distribute services. \cite{Coleman2009}
+In this way, cluster detection for disease control avoids some of the criticisms levelled at cluster detection for scientific purposes by Rothman
+\begin{quotation}
+ The evaluation of clustering itself does not readily generate interesting hypotheses, or move us forward much toward understanding disease etiology. 
+\end{quotation}
+When the aetiology of a disease is well understood and control measures are known to be effective, the lack of hypothesis generation matters little. 
+
+\subsubsection{Applications of cluster detection}
+Cluster detection can vary in scale, from the very local to the global.
+The detection of diseases introduced to countries by returning travellers is important to prevent such diseases becoming established. 
+Cluster detection has been able to identify clusters of malaria and dengue fever in travellers returning from a number of countries.\cite{Leder2013}
+Such information could contribute to the preparation of guidelines for overseas travellers and would allow surveillance systems to attribute such cases to exogenous risks rather than endogenous. 
+In contrast, very localised work can seek to identify hotspots of disease to intervene, such as by employing larvicidal techniques to reduce malaria in Zanzibar.\cite{Bousema2012}
+
+Cluster detection may also incorporate temporal dimensions in clustering, which can provide information about control measures, such as the relative benefits of culling in the control of foot and mouth disease in cattle. \cite{Wilesmith2003}
+
+\subsubsection{Limitations of cluster detection}
+There is a great variety of methods available for the detection of spatial clusters and some limitations are method specific. 
+
+Ripley's K-function assumes a completely mapped spatial point process (i.e. all events are known and have spatial data) and compares the distribution of a pattern of points to that generated by a homogeneous Poisson point process. \cite{Dixon2002} 
+This method has two inherent limitations, first that all events must be known and second that, as a consequence of the Poisson assumption, the occurrence of one event does not affect the probability of subsequent events.
+This may be true for in some non-communicable disease but is less likely to be true for communicable diseases, where an individual is more likely to contract a disease when in an area of high prevalence. \cite{Kirkwood2003}
+
+Kulldorff's spatial scan statistic uses an expanding window, varying in position, to compare levels of disease inside to those outside to identify areas that are higher than expected.\cite{Kulldorff1995} 
+The window used is circular and disease distribution may not conform to such a geometry, for example HIV cases may distribute along major roads and thus not form circular clusters.\cite{Tatem2012} 
+New methods have circumvented this limitation allowing flexible shapes to be used in cluster detection. \cite{Tango2005}
+
+Cluster detection methods are also vulnerable to manipulation depending on the parameters set when running tests.
+For example, the \texttt{Kest} function in R for estimating Ripey's K statistic includes options for edge correction with ten potential choices. 
+Making the wrong choice may result in inappropriate adjustment and weaken any conclusions. 
+
+Many of the limitations of using spatial clustering are the same as those methods used for standard epidemiology. 
+Spatial techniques are equally vulnerable to errors due to chance, bias or confounding. 
+
+Systematic errors in the reporting or recording of spatial data in disease occurrence will bias data, resulting in the detection of more or fewer clusters than there really are. 
+Systematic bias in the availability of geographic data may result in erroneous cluster detection. 
+For example, Oliver et al identified lower completion of geographic data among residents of rural areas, of lower education achievement and of increased age. \cite{Oliver2005}
+Where such factors are independently associated with disease risk assessments of clustering will be confounded. 
+
+Measurement error of spatial data can occur in two ways. 
+An instrument could be prone to excess variation in the recording of location or it could be consistently inaccurate in the measurement of location and offset the true location of a point by the same amount each time. 
+The first form of measurement error will weaken both global and local measures of clustering as points will be more evenly distributed than they truly are. 
+The second form of measurement error is more complex. 
+If global or local clustering is being considered alone, then there will be no consequence and points will remain the same distance from each other, resulting in the same measures of clustering that would otherwise be detected.
+However, if the locations of clusters matter in relation to the presence of other factors, such as breeding grounds for filarial vectors, then control programmes will be based on erroneous information and potentially not administered where required. 
+
+Spatial cluster analysis is vulnerable to  multiple comparisons resulting in spurious associations being detected. \cite{Olsen1996}
+Multiple comparisons might arise in two potential situations. 
+Having detected a cluster of disease, the temptation would then be to hypothesise an environmental cause for the location of the cluster. 
+Given the potential richness in environmental risks factors, comparisons could continue until a statistically significant association is found. 
+In the second scenario, rates of disease of a study area could be aggregated by some administrative area, and then clustering performed. 
+If there were 20 or more administrative areas, the clustering analysis would have performed twenty comparisons and false positives might have been detected. 
+
+One particular criticism of cluster detection has been directed at the investigation of non-communicable diseases.
+In the response to a hypothesised environmental risk factor for disease, the analyst runs the risk of the Texas sharpshooter problem. \cite{Rothman1990, Elliott2004}
+There might exist social or political pressure for boundaries for investigation to be defined in a particular manner.
+Such investigations would run the risk of a flexible boundary for the study area, prior beliefs and recall biasing case finding and exposure status. 
+This could equally apply to infectious disease where disease might be spread by contaminated water, such as cholera or leptospirosis. 
+
+The detection of a cluster of disease within a population, and the implementation of appropriate control measures, require a population that is geographically stable. 
+Itinerant workers therefore pose a problem for cluster detection. 
+For example men employed in forestry work involves outdoor work, increasing malaria risk, and a mobile workforce. 
+Such a mobile population is not likely to be detected using cluster methods as cases will not all occur at the same time and thus appear geographically distributed.\cite{Cotter2013}
+
+\subsubsection{Conclusion}
+Cluster detection is appropriate for targeting effective interventions in disease control programs, but vulnerable to the same flaws as standard epidemiology. 
+\bibliographystyle{unsrt}
 \bibliography{sp_refs}
 \end{document}

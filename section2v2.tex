@@ -1,6 +1,10 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage[utf8]{inputenc}
-
+\usepackage[british]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
 %opening
 \title{A critical synthesis of modern methods in spatial statistics - point processes}
 \author{Student 106936}
@@ -11,27 +15,26 @@
 \section{Spatial point processes}
 Spatial data can be classified into three forms: point, continuous and aggregated. 
 Aggregated data combines multiple measures of some exposure or outcome into an overall value for some defined geographical area. 
-These data can then be analysed based on their spatial neighbourhood. 
 As with non-spatial data, continuous data can take any value within a range. 
-In contrast to these forms, point data is the occurrence of a discrete event within space. 
+In contrast, point data is the occurrence of a discrete event within space. 
 
 A spatial point process is a mathematical description of the spatial distribution of events occurring on a plane. 
 The number of points (events) and the positions of points on the plane are are subject to variation due to chance, i.e. they are random. 
 The analysis of spatial point processes aims to estimate the parameters of the process. 
 
-For example, the locations of diagnoses of people with lymphatic filariasis will be distributed at random throughout space. 
+For example, the locations of diagnoses of people with lymphatic filariasis will be distributed throughout space. 
 Each diagnosis would be an event, and the location of each event would be subject to random variation. 
-However, the frequency with which events occur will vary according a number of factors, including the density of parasite vectors in the local environment. 
-These are first order effect effects and are deterministic. 
+However, the frequency and location at which events occur will vary according a number of factors in the local environment, such as the level of vegetation. \cite{Stensgaard2011}
+These are first order effects and are deterministic. 
 In addition to the deterministic effects, second order effects may be present. 
-In second order effects there is spatial dependency and events are either more likely to occur in areas where there are already a high number of the same event, or less likely to occur in such areas. 
-The former case is more likely to occur in communicable disease epidemiology, where a person is more likely to become infected when proximate to other people who are already infected. 
+In second order effects there is spatial dependency and events are either more or less likely to occur in areas where there is already a high number of the same event. 
+The former scenario is more likely to occur in communicable disease epidemiology, where a person is more likely to become infected when proximate to other people who are already infected. 
 
 %\item Using examples of at least two disease system, discuss advantages and disadvantages of cluster detection methods and application to inf dis control programmes. (80 \%)
 
 \section{Advantages and disadvantages of cluster detection and application to infectious disease control programmes}
 \subsection{Introduction and definitions}
-The Centers for Disease Prevention and Control define a disease cluster as 
+The Centers for Disease Prevention and Control (CDC) define a disease cluster as 
 \begin{quotation}
  an unusual aggregation, real or perceived, of health events that are grouped together in time and space and that are reported to a health agency.\cite{cdc1990}
 \end{quotation}
@@ -39,18 +42,17 @@ In contrast, Rothman argues that geographic clusters are
 \begin{quotation}
  a geographically defined population with a high [disease] incidence rate.\cite{Rothman1990}
 \end{quotation}
-Both definitions fail to specify the criteria for 'unusual' or 'high'. 
 
-Infectious disease control programmes are health care systems designed to limit the incidence of specified infectious diseases. 
-This may include, but not be limited to, surveillance of cases of infectious disease, interventions to reduce or remove risk factors and treat, or facilitate the treatment of, persons affected by the disease in question. 
-To this end, the intents of infection control programmes are quite different to the epidemiologic investigation of disease where the aim is to identify, and describe scientifically, those factors predisposing to disease. 
+Infectious disease control programmes are health care systems designed to reduce the incidence or prevalence of specified infectious diseases. 
+This may include surveillance of cases of disease, interventions to reduce or remove risk factors and treat, or facilitate the treatment of, persons affected by the specified disease. 
+The intentions of infection control programmes are quite different to the epidemiologic investigation of disease where the aim is to identify, and describe scientifically, those factors determining disease frequency. 
 
-Investigatory cluster detection aims identify novel factors that geographically co-distribute with areas of high disease rates in order to elucidate the causes of diseases.
+Investigatory cluster detection aims to identify novel factors that geographically co-distribute with areas of high disease rates to elucidate causes of disease.
 In contrast, cluster detection in control programmes seeks to identify areas with unusually high or low levels of disease in order to make some change to reduce those levels. 
 For example, the surveillance of malaria in Mpumalanga Province in South Africa has employed disease cluster analysis to prioritise control methods and distribute services. \cite{Coleman2009}
 In this way, cluster detection for disease control avoids some of the criticisms levelled at cluster detection for scientific purposes by Rothman
 \begin{quotation}
- With specific disease hypotheses in hand we should test them in preference to the vague hypothesis that this might be one of those diseases that occurs in clusters. The evaluation of clustering itself does not readily generate interesting hypotheses, or move us forward much toward understanding disease etiology. 
+ The evaluation of clustering itself does not readily generate interesting hypotheses, or move us forward much toward understanding disease etiology. 
 \end{quotation}
 When the aetiology of a disease is well understood and control measures are known to be effective, the lack of hypothesis generation matters little. 
 
@@ -59,5 +61,58 @@ Cluster detection can vary in scale, from the very local to the global.
 The detection of diseases introduced to countries by returning travellers is important to prevent such diseases becoming established. 
 Cluster detection has been able to identify clusters of malaria and dengue fever in travellers returning from a number of countries.\cite{Leder2013}
 Such information could contribute to the preparation of guidelines for overseas travellers and would allow surveillance systems to attribute such cases to exogenous risks rather than endogenous. 
-In contrast very localised work can seek to identify hotspots of disease to intervene, such as by employing larvicidal techniques to reduce malaria in Zanzibar.\cite{Bousema2013}
+In contrast, very localised work can seek to identify hotspots of disease to intervene, such as by employing larvicidal techniques to reduce malaria in Zanzibar.\cite{Bousema2013}
+
+Cluster detection may also incorporate temporal dimensions in clustering, which can provide information about control measures, such as the relative benefits of culling in the control of foot and mouth disease in cattle. \cite{Wilesmith2003}
+
+\subsection{Limitations of cluster detection}
+There is a great variety of methods available for the detection of spatial clusters and some limitations are method specific. 
+
+Ripley's K-function assumes a completely mapped spatial point process (i.e. all events are known and have spatial data) and compares the distribution of a pattern of points to that generated by a homogeneous Poisson point process. \cite{Dixon2002} 
+This method has two inherent limitations, first that all events must be known and second that, as a consequence of the Poisson assumption, the occurrence of one event does not affect the probability of subsequent events.
+This may be true for in some non-communicable disease but is less likely to be true for communicable diseases, where an individual is more likely to contract a disease when in an area of high prevalence. \cite{Kirkwood2003}
+
+Kulldorff's spatial scan statistic uses an expanding window, varying in position, to compare levels of disease inside to those outside to identify areas that are higher than expected.\cite{Kulldorff1995} 
+The window used is circular and disease distribution may not conform to such a geometry, for example HIV cases may distribute along major roads and thus not form circular clusters.\cite{Tatem2012} 
+New methods have circumvented this limitation allowing flexible shapes to be used in cluster detection. \cite{Tango2005}
+
+Cluster detection methods are also vulnerable to manipulation depending on the parameters set when running tests.
+For example, the \texttt{Kest} function in R for estimating Ripey's K statistic includes options for edge correction with ten potential choices. 
+Making the wrong choice may result in inappropriate adjustment and weaken any conclusions. 
+
+Many of the limitations of using spatial clustering are the same as those methods used for standard epidemiology. 
+Spatial techniques are equally vulnerable to errors due to chance, bias or confounding. 
+
+Systematic errors in the reporting or recording of spatial data in disease occurrence will bias data, resulting in the detection of more or fewer clusters than there really are. 
+Systematic bias in the availability of geographic data may result in erroneous cluster detection. 
+For example, Oliver et al identified lower completion of geographic data among residents of rural areas, of lower education achievement and of increased age. \cite{Oliver2005}
+Where such factors are independently associated with disease risk assessments of clustering will be confounded. 
+
+Measurement error of spatial data can occur in two ways. 
+An instrument could be prone to excess variation in the recording of location or it could be consistently inaccurate in the measurement of location and offset the true location of a point by the same amount each time. 
+The first form of measurement error will weaken both global and local measures of clustering as points will be more evenly distributed than they truly are. 
+The second form of measurement error is more complex. 
+If global or local clustering is being considered alone, then there will be no consequence and points will remain the same distance from each other, resulting in the same measures of clustering that would otherwise be detected.
+However, if the locations of clusters matter in relation to the presence of other factors, such as breeding grounds for filarial vectors, then control programmes will be based on erroneous information and potentially not administered where required. 
+
+Spatial cluster analysis is vulnerable to  multiple comparisons resulting in spurious associations being detected. \cite{Olsen1996}
+Multiple comparisons might arise in two potential situations. 
+Having detected a cluster of disease, the temptation would then be to hypothesise an environmental cause for the location of the cluster. 
+Given the potential richness in environmental risks factors, comparisons could continue until a statistically significant association is found. 
+In the second scenario, rates of disease of a study area could be aggregated by some administrative area, and then clustering performed. 
+If there were 20 or more administrative areas, the clustering analysis would have performed twenty comparisons and false positives might have been detected. 
+
+One particular criticism of cluster detection has been directed at the investigation of non-communicable diseases.
+In the response to a hypothesised environmental risk factor for disease, the analyst runs the risk of the Texas sharpshooter problem. \cite{Rothman1990, Elliott2004}
+There might exist social or political pressure for boundaries for investigation to be defined in a particular manner.
+Such investigations would run the risk of a flexible boundary for the study area, prior beliefs and recall biasing case finding and exposure status. 
+This could equally apply to infectious disease where disease might be spread by contaminated water, such as cholera or leptospirosis. 
+
+The detection of a cluster of disease within a population, and the implementation of appropriate control measures, require a population that is geographically stable. 
+Itinerant workers therefore pose a problem for cluster detection. 
+For example men employed in forestry work involves outdoor work, increasing malaria risk, and a mobile workforce. 
+Such a mobile population is not likely to be detected using cluster methods as cases will not all occur at the same time and thus appear geographically distributed.\cite{Cotter2013}
+
+\subsection{Conclusion}
+Cluster detection is appropriate for targeting effective interventions in disease control programs, but vulnerable to the same flaws as standard epidemiology. 
 \end{document}

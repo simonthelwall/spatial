@@ -23,7 +23,7 @@ cases <- tapply(data$cases,data$county,sum)
 
 ## Based on the 16 strata levels, computed expected numbers of disease
 n.strata <- 16 # not sure where 16 comes from
-# poss explanation, age has 4 levels, sex = 2, race = 2 4*2*2 = 16.
+# poss explanation, age has 4 levels, sex = 2, race = 2, 4*2*2 = 16.
 expected.cases <- expected(data$population, data$cases, 16) # expected cases for each county
 
 binomial.out <- kulldorff(geo, cases, population, NULL, 0.5, 999, 0.05, plot = TRUE)
